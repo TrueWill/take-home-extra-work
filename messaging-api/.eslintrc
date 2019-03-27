@@ -12,7 +12,8 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "no-var": "error"
   },
   "plugins": ["jest"]
 }
