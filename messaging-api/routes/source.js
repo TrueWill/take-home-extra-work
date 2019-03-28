@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource 2');
+router.get('/', function(req, res) {
+  res.status(200).json([{ foo: 'bar' }]);
 });
 
 module.exports = router;
