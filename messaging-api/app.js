@@ -8,7 +8,7 @@ const messageRouter = require('./routes/message');
 const sourceRepository = require('./persistence/sourceRepository');
 
 const app = express();
-const port = 8888; // TODO move to config
+const port = 8880; // TODO move to config
 
 app.use(logger('dev'));
 
@@ -21,3 +21,5 @@ sourceRepository
   .open()
   .then(() => app.listen(port, () => console.log('Listening on port ' + port)))
   .catch(err => console.log(err));
+
+module.exports = app;
