@@ -29,7 +29,9 @@ function query(sql) {
 }
 
 function getSources() {
-  return query('SELECT * FROM source');
+  return query(
+    'SELECT id, name, environment, encoding, created_at, updated_at FROM source WHERE deleted_at IS NULL;'
+  );
 }
 
 module.exports = {
