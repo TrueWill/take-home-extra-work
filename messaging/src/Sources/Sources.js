@@ -1,18 +1,24 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Sources({ sources, foo }) {
+function Sources({ sources, fetchSources }) {
   useEffect(() => {
-    console.log('mount');
-    foo();
+    fetchSources();
   }, []);
 
-  return <div>Sources {JSON.stringify(sources)}</div>;
+  const items = sources.map(source => <li key={source.id}>{source.name}</li>);
+
+  return (
+    <div>
+      <h2>Sources</h2>
+      <ul>{items}</ul>
+    </div>
+  );
 }
 
 Sources.propTypes = {
   sources: PropTypes.array.isRequired,
-  foo: PropTypes.func.isRequired
+  fetchSources: PropTypes.func.isRequired
 };
 
 export default Sources;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { foo } from '../actions/sourceActions';
+import { fetchSources } from '../actions/sourceActions';
 import { getSources } from '../selectors/simple';
 import Sources from './Sources';
 
@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  foo
+  fetchSources
 };
 
 export default connect(
