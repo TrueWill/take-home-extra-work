@@ -1,9 +1,11 @@
 {
   "name": "messaging-api",
   "version": "0.1.0",
+  "description": "Server-side API code for messaging",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jest --watch"
   },
   "dependencies": {
     "debug": "~2.6.9",
@@ -12,6 +14,7 @@
   },
   "devDependencies": {
     "eslint": "^5.15.3",
-    "eslint-plugin-jest": "^22.4.1"
+    "eslint-plugin-jest": "^22.4.1",
+    "jest": "^24.5.0"
   }
 }
