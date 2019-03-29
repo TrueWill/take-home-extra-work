@@ -22,20 +22,30 @@ function close() {
   }
 }
 
-function query(sql) {
+function query(sql, params = {}) {
   return new Promise((resolve, reject) => {
-    db.all(sql, (err, rows) => (err ? reject(err) : resolve(rows)));
+    db.all(sql, params, (err, rows) => (err ? reject(err) : resolve(rows)));
   });
 }
 
 function getSources() {
+  return query('SELECT id, name FROM source WHERE deleted_at IS NULL;');
+}
+
+// Promise resolves to null if not found.
+// Not ideal, but easier to handle than rejecting.
+function getSource(id) {
   return query(
-    'SELECT id, name, environment, encoding, created_at, updated_at FROM source WHERE deleted_at IS NULL;'
-  );
+    'SELECT id, name, environment, encoding, created_at, updated_at FROM source WHERE id = $id AND deleted_at IS NULL;',
+    {
+      $id: id
+    }
+  ).then(resultSet => (resultSet.length > 0 ? resultSet[0] : null));
 }
 
 module.exports = {
   open,
   close,
-  getSources
+  getSources,
+  getSource
 };

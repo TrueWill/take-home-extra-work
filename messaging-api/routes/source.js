@@ -11,4 +11,15 @@ router.get('/', function(req, res) {
     .catch(err => errorHandler(err, res));
 });
 
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+
+  sourceRepository
+    .getSource(id)
+    .then(source =>
+      source ? res.status(200).json(source) : res.sendStatus(404)
+    )
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;
