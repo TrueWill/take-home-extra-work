@@ -18,3 +18,7 @@ function createHeaders() {
 export function fetchSources() {
   return client.get('/source', createHeaders());
 }
+
+export function fetchSource(id) {
+  return client.get(`/source/${id}`, createHeaders());
+}
