@@ -28,3 +28,31 @@ export function fetchSources() {
       });
   };
 }
+
+function fetchSourceSucceeded(source) {
+  return {
+    type: types.FETCH_SOURCE_SUCCEEDED,
+    source
+  };
+}
+
+function fetchSourceFailed(error) {
+  return {
+    type: types.FETCH_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function fetchSource(id) {
+  return dispatch => {
+    api
+      .fetchSource(id)
+      .then(resp => {
+        return dispatch(fetchSourceSucceeded(resp.data));
+      })
+      .catch(err => {
+        return dispatch(fetchSourceFailed(err.message));
+      });
+  };
+}

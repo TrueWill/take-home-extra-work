@@ -7,6 +7,10 @@ export default (state = initialState.sources, action) => {
       return { ...state, all: action.sources, error: null };
     case types.FETCH_SOURCES_FAILED:
       return { ...state, all: [], error: action.error };
+    case types.FETCH_SOURCE_SUCCEEDED:
+      return { ...state, current: action.source, error: null };
+    case types.FETCH_SOURCE_FAILED:
+      return { ...state, current: null, error: action.error };
     default:
       return state;
   }
