@@ -31,3 +31,18 @@ test('retrieve all messages for a source', () => {
     .getMessagesForSource(sourceId)
     .then(messages => expect(messages.length).toBe(100));
 });
+
+test('retrieve aggregate status of messages for a source', () => {
+  const sourceId = 'f4f96516-c5ec-43bb-ba21-da1f35dacf8a';
+
+  return sut
+    .getMessageStatusCountsForSource(sourceId)
+    .then(counts =>
+      expect(counts).toEqual([
+        { status: 'enqueued', count: 14 },
+        { status: 'error', count: 52 },
+        { status: 'finished', count: 15 },
+        { status: 'processing', count: 19 }
+      ])
+    );
+});

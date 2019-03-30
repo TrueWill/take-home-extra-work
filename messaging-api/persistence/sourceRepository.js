@@ -28,6 +28,8 @@ function query(sql, params = {}) {
   });
 }
 
+// Arguably should be checking deleted_at against current date as well.
+
 // TODO: Add order
 function getSources() {
   return query('SELECT id, name FROM source WHERE deleted_at IS NULL;');
@@ -58,10 +60,24 @@ function getMessagesForSource(sourceId) {
   );
 }
 
+function getMessageStatusCountsForSource(sourceId) {
+  return query(
+    `SELECT status, COUNT(id) AS count
+    FROM message
+    WHERE source_id = $sourceId AND deleted_at IS NULL
+    GROUP BY status
+    ORDER BY status;`,
+    {
+      $sourceId: sourceId
+    }
+  );
+}
+
 module.exports = {
   open,
   close,
   getSources,
   getSource,
-  getMessagesForSource
+  getMessagesForSource,
+  getMessageStatusCountsForSource
 };
