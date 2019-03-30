@@ -32,14 +32,21 @@ function query(sql, params = {}) {
 
 // TODO: Add order
 function getSources() {
-  return query('SELECT id, name FROM source WHERE deleted_at IS NULL;');
+  return query(
+    `SELECT id, name
+    FROM source
+    WHERE deleted_at IS NULL;`
+  );
 }
 
 // Promise resolves to null if not found.
 // Not ideal, but easier to handle than rejecting.
 function getSource(id) {
   return query(
-    'SELECT id, name, environment, encoding, created_at, updated_at FROM source WHERE id = $id AND deleted_at IS NULL;',
+    `SELECT id, name, environment, encoding, created_at, updated_at
+    FROM source
+    WHERE id = $id
+      AND deleted_at IS NULL;`,
     {
       $id: id
     }
@@ -53,7 +60,10 @@ function getSource(id) {
 // TODO: Support pagination
 function getMessagesForSource(sourceId) {
   return query(
-    'SELECT id, message, status, created_at, updated_at FROM message WHERE source_id = $sourceId AND deleted_at IS NULL;',
+    `SELECT id, message, status, created_at, updated_at
+    FROM message
+    WHERE source_id = $sourceId
+      AND deleted_at IS NULL;`,
     {
       $sourceId: sourceId
     }
@@ -64,7 +74,8 @@ function getMessageStatusCountsForSource(sourceId) {
   return query(
     `SELECT status, COUNT(id) AS count
     FROM message
-    WHERE source_id = $sourceId AND deleted_at IS NULL
+    WHERE source_id = $sourceId
+      AND deleted_at IS NULL
     GROUP BY status
     ORDER BY status;`,
     {
