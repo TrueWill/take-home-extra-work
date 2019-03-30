@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Messages from './Messages';
 
 // TODO: Convert string to local date
 
-function SourceDetail({ source }) {
+function SourceDetail({ source, messages, fetchMessagesForSource }) {
+  const handleLoadMessagesClick = () => {
+    fetchMessagesForSource(source.id);
+  };
+
   return (
     <div>
       <h3>Source</h3>
@@ -13,6 +18,10 @@ function SourceDetail({ source }) {
       <div>Encoding: {source.encoding}</div>
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
+      <button type="button" onClick={handleLoadMessagesClick}>
+        Load messages
+      </button>
+      <Messages messages={messages} />
     </div>
   );
 }
@@ -25,7 +34,9 @@ SourceDetail.propTypes = {
     encoding: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     updated_at: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  messages: PropTypes.array.isRequired,
+  fetchMessagesForSource: PropTypes.func.isRequired
 };
 
 export default SourceDetail;

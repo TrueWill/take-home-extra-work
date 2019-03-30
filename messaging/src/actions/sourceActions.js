@@ -56,3 +56,31 @@ export function fetchSource(id) {
       });
   };
 }
+
+function fetchMessagesForSourceSucceeded(messages) {
+  return {
+    type: types.FETCH_MESSAGES_FOR_SOURCE_SUCCEEDED,
+    messages
+  };
+}
+
+function fetchMessagesForSourceFailed(error) {
+  return {
+    type: types.FETCH_MESSAGES_FOR_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function fetchMessagesForSource(sourceId) {
+  return dispatch => {
+    api
+      .fetchMessagesForSource(sourceId)
+      .then(resp => {
+        return dispatch(fetchMessagesForSourceSucceeded(resp.data));
+      })
+      .catch(err => {
+        return dispatch(fetchMessagesForSourceFailed(err.message));
+      });
+  };
+}

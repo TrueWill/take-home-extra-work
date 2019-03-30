@@ -1,16 +1,26 @@
 import { connect } from 'react-redux';
-import { fetchSources, fetchSource } from '../actions/sourceActions';
-import { getSources, getCurrentSource } from '../selectors/simple';
+import {
+  fetchSources,
+  fetchSource,
+  fetchMessagesForSource
+} from '../actions/sourceActions';
+import {
+  getSources,
+  getCurrentSource,
+  getCurrentMessages
+} from '../selectors/simple';
 import Sources from './Sources';
 
 const mapStateToProps = state => ({
   sources: getSources(state),
-  currentSource: getCurrentSource(state)
+  currentSource: getCurrentSource(state),
+  currentMessages: getCurrentMessages(state)
 });
 
 const mapDispatchToProps = {
   fetchSources,
-  fetchSource
+  fetchSource,
+  fetchMessagesForSource
 };
 
 export default connect(

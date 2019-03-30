@@ -2,3 +2,4 @@
 
 export const getSources = state => state.sources.all;
 export const getCurrentSource = state => state.sources.current;
+export const getCurrentMessages = state => state.sources.currentMessages;

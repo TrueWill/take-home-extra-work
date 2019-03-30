@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import SourceBasic from './SourceBasic';
 import SourceDetail from './SourceDetail';
 
-function Sources({ sources, currentSource, fetchSources, fetchSource }) {
+function Sources({
+  sources,
+  currentSource,
+  currentMessages,
+  fetchSources,
+  fetchSource,
+  fetchMessagesForSource
+}) {
   useEffect(() => {
     fetchSources();
   }, []);
@@ -16,7 +23,13 @@ function Sources({ sources, currentSource, fetchSources, fetchSource }) {
     <div>
       <h2>Sources</h2>
       <ul>{items}</ul>
-      {currentSource && <SourceDetail source={currentSource} />}
+      {currentSource && (
+        <SourceDetail
+          source={currentSource}
+          messages={currentMessages}
+          fetchMessagesForSource={fetchMessagesForSource}
+        />
+      )}
     </div>
   );
 }
@@ -24,8 +37,10 @@ function Sources({ sources, currentSource, fetchSources, fetchSource }) {
 Sources.propTypes = {
   sources: PropTypes.array.isRequired,
   currentSource: PropTypes.object,
+  currentMessages: PropTypes.array.isRequired,
   fetchSources: PropTypes.func.isRequired,
-  fetchSource: PropTypes.func.isRequired
+  fetchSource: PropTypes.func.isRequired,
+  fetchMessagesForSource: PropTypes.func.isRequired
 };
 
 export default Sources;

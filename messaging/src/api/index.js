@@ -31,3 +31,7 @@ export function fetchSources() {
 export function fetchSource(id) {
   return client.get(`/source/${id}`, createHeaders());
 }
+
+export function fetchMessagesForSource(sourceId) {
+  return client.get(`/source/${sourceId}/message`, createHeaders());
+}
