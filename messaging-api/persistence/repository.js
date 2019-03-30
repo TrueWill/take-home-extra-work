@@ -1,15 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
+const uuidv4 = require('uuid/v4');
 
 let db;
 
 function open() {
   // TODO: Move hardcoded path to configuration
-  // TODO: Change mode to read/write
   return new Promise(
     (resolve, reject) =>
       (db = new sqlite3.Database(
         '/Users/bsorensen/take-home/db.sqlite',
-        sqlite3.OPEN_READONLY,
+        sqlite3.OPEN_READWRITE,
         err => (err ? reject(err) : resolve())
       ))
   );
@@ -102,6 +102,39 @@ function getMessage(messageId) {
   ).then(resultSet => (resultSet.length > 0 ? resultSet[0] : null));
 }
 
+function createSource(name, environment, encoding) {
+  const id = uuidv4();
+
+  return new Promise((resolve, reject) => {
+    db.run(
+      `INSERT INTO source
+      (id, name, environment, encoding)
+      VALUES
+      ($id, $name, $environment, $encoding);`,
+      {
+        $id: id,
+        $name: name,
+        $environment: environment,
+        $encoding: encoding
+      },
+      err => (err ? reject(err) : resolve(id))
+    );
+  });
+}
+
+// For tests
+function hardDeleteSource(id) {
+  return new Promise((resolve, reject) => {
+    db.run(
+      'DELETE FROM source WHERE id = $id;',
+      {
+        $id: id
+      },
+      err => (err ? reject(err) : resolve())
+    );
+  });
+}
+
 module.exports = {
   open,
   close,
@@ -110,5 +143,7 @@ module.exports = {
   getMessagesForSource,
   getMessageStatusCountsForSource,
   getMessages,
-  getMessage
+  getMessage,
+  createSource,
+  hardDeleteSource
 };
