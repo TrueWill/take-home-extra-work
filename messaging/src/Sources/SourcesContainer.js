@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import { fetchSources } from '../actions/sourceActions';
-import { getSources } from '../selectors/simple';
+import { fetchSources, fetchSource } from '../actions/sourceActions';
+import { getSources, getCurrentSource } from '../selectors/simple';
 import Sources from './Sources';
 
 const mapStateToProps = state => ({
-  sources: getSources(state)
+  sources: getSources(state),
+  currentSource: getCurrentSource(state)
 });
 
 const mapDispatchToProps = {
-  fetchSources
+  fetchSources,
+  fetchSource
 };
 
 export default connect(

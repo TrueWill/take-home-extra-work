@@ -1,24 +1,31 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import SourceBasic from './SourceBasic';
+import SourceDetail from './SourceDetail';
 
-function Sources({ sources, fetchSources }) {
+function Sources({ sources, currentSource, fetchSources, fetchSource }) {
   useEffect(() => {
     fetchSources();
   }, []);
 
-  const items = sources.map(source => <li key={source.id}>{source.name}</li>);
+  const items = sources.map(source => (
+    <SourceBasic key={source.id} source={source} fetchSource={fetchSource} />
+  ));
 
   return (
     <div>
       <h2>Sources</h2>
       <ul>{items}</ul>
+      {currentSource && <SourceDetail source={currentSource} />}
     </div>
   );
 }
 
 Sources.propTypes = {
   sources: PropTypes.array.isRequired,
-  fetchSources: PropTypes.func.isRequired
+  currentSource: PropTypes.object,
+  fetchSources: PropTypes.func.isRequired,
+  fetchSource: PropTypes.func.isRequired
 };
 
 export default Sources;
