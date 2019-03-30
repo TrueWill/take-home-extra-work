@@ -46,3 +46,19 @@ test('retrieve aggregate status of messages for a source', () => {
       ])
     );
 });
+
+test('retrieve single message when found', () => {
+  return sut
+    .getMessage('8b3fbf5e-52b4-468a-8fda-228b45968a4a')
+    .then(message => expect(message.status).toBe('enqueued'));
+});
+
+test('retrieve single message when not found', () => {
+  return sut.getMessage('nosuch').then(message => expect(message).toBeNull());
+});
+
+test('retrieve all messages', () => {
+  return sut
+    .getMessages()
+    .then(messages => expect(messages.length).toBe(17400));
+});

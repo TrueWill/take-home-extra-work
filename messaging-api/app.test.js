@@ -62,3 +62,31 @@ test('message status counts for a source', done => {
     )
     .expect(200, done);
 });
+
+test('single message route when found', done => {
+  supertest(app)
+    .get('/message/8b3fbf5e-52b4-468a-8fda-228b45968a4a')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Content-Type', /json/)
+    .expect(res => expect(res.text).toContain('enqueued'))
+    .expect(200, done);
+});
+
+test('single message route when not found', done => {
+  supertest(app)
+    .get('/message/nosuch')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect(404, done);
+});
+
+test('message route', done => {
+  supertest(app)
+    .get('/message')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Content-Type', /json/)
+    .expect(res => expect(res.body.length).toBe(17400))
+    .expect(200, done);
+});

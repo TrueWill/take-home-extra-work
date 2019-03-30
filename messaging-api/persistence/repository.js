@@ -80,11 +80,35 @@ function getMessageStatusCountsForSource(sourceId) {
   );
 }
 
+function getMessages() {
+  return query(
+    `SELECT id, source_id, message, status, created_at, updated_at
+    FROM message
+    WHERE deleted_at IS NULL
+    ORDER BY created_at, id;`
+  );
+}
+
+// Promise resolves to null if not found.
+function getMessage(messageId) {
+  return query(
+    `SELECT id, source_id, message, status, created_at, updated_at
+    FROM message
+    WHERE id = $messageId
+      AND deleted_at IS NULL;`,
+    {
+      $messageId: messageId
+    }
+  ).then(resultSet => (resultSet.length > 0 ? resultSet[0] : null));
+}
+
 module.exports = {
   open,
   close,
   getSources,
   getSource,
   getMessagesForSource,
-  getMessageStatusCountsForSource
+  getMessageStatusCountsForSource,
+  getMessages,
+  getMessage
 };
