@@ -31,4 +31,13 @@ router.get('/:id/message', (req, res) => {
     .catch(err => errorHandler(err, res));
 });
 
+router.get('/:id/message/status', (req, res) => {
+  const id = req.params.id;
+
+  sourceRepository
+    .getMessageStatusCountsForSource(id)
+    .then(counts => res.status(200).json(counts))
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;

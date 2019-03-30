@@ -50,3 +50,15 @@ test('messages for a source', done => {
     .expect(res => expect(res.body.length).toBe(100))
     .expect(200, done);
 });
+
+test('message status counts for a source', done => {
+  supertest(app)
+    .get('/source/f4f96516-c5ec-43bb-ba21-da1f35dacf8a/message/status')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Content-Type', /json/)
+    .expect(res =>
+      expect(res.body[0]).toEqual({ status: 'enqueued', count: 14 })
+    )
+    .expect(200, done);
+});
