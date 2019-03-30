@@ -1,6 +1,7 @@
 const supertest = require('supertest');
 const app = require('./app');
 const security = require('./security');
+const repository = require('./persistence/repository');
 
 // Integration tests
 
@@ -89,4 +90,29 @@ test('message route', done => {
     .expect('Content-Type', /json/)
     .expect(res => expect(res.body.length).toBe(17400))
     .expect(200, done);
+});
+
+test('create source route', done => {
+  const data = {
+    name: 'Bar',
+    environment: 'development',
+    encoding: 'utf8'
+  };
+
+  supertest(app)
+    .post('/source')
+    .send(data)
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Location', /source\//)
+    .expect(201)
+    .end((err, res) => {
+      if (err) return done(err);
+      if (res.headers.location) {
+        const id = res.headers.location.replace('/source/', '');
+        repository.hardDeleteSource(id).finally(done);
+      } else {
+        done();
+      }
+    });
 });

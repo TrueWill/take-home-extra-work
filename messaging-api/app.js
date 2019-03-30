@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const nodeCleanup = require('node-cleanup');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const security = require('./security');
 
 const sourceRouter = require('./routes/source');
@@ -20,6 +21,8 @@ app.use(logger('dev'));
 app.use(cors());
 
 app.use(security.checkToken);
+
+app.use(bodyParser.json());
 
 app.use('/source', sourceRouter);
 app.use('/message', messageRouter);

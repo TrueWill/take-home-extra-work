@@ -40,4 +40,17 @@ router.get('/:id/message/status', (req, res) => {
     .catch(err => errorHandler(err, res));
 });
 
+// Add source
+router.post('/', (req, res) => {
+  const source = req.body;
+
+  repository
+    .createSource(source.name, source.environment, source.encoding)
+    .then(id => {
+      res.location('/source/' + id);
+      res.status(201).send();
+    })
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;
