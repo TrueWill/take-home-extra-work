@@ -1,11 +1,11 @@
 const express = require('express');
-const sourceRepository = require('../persistence/sourceRepository');
+const repository = require('../persistence/repository');
 const errorHandler = require('../errorHandler');
 
 const router = express.Router();
 
 router.get('/', function(req, res) {
-  sourceRepository
+  repository
     .getSources()
     .then(sources => res.status(200).json(sources))
     .catch(err => errorHandler(err, res));
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 router.get('/:id', (req, res) => {
   const id = req.params.id;
 
-  sourceRepository
+  repository
     .getSource(id)
     .then(source =>
       source ? res.status(200).json(source) : res.sendStatus(404)
@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/message', (req, res) => {
   const id = req.params.id;
 
-  sourceRepository
+  repository
     .getMessagesForSource(id)
     .then(messages => res.status(200).json(messages))
     .catch(err => errorHandler(err, res));
@@ -34,7 +34,7 @@ router.get('/:id/message', (req, res) => {
 router.get('/:id/message/status', (req, res) => {
   const id = req.params.id;
 
-  sourceRepository
+  repository
     .getMessageStatusCountsForSource(id)
     .then(counts => res.status(200).json(counts))
     .catch(err => errorHandler(err, res));

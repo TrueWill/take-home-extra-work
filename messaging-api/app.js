@@ -7,7 +7,7 @@ const security = require('./security');
 const sourceRouter = require('./routes/source');
 const messageRouter = require('./routes/message');
 
-const sourceRepository = require('./persistence/sourceRepository');
+const repository = require('./persistence/repository');
 
 const app = express();
 const port = 8880; // TODO move to config
@@ -24,9 +24,9 @@ app.use(security.checkToken);
 app.use('/source', sourceRouter);
 app.use('/message', messageRouter);
 
-nodeCleanup(() => sourceRepository.close());
+nodeCleanup(() => repository.close());
 
-sourceRepository
+repository
   .open()
   .then(() => app.listen(port, () => console.log('Listening on port ' + port)))
   .catch(err => console.log(err));

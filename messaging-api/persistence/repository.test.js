@@ -1,4 +1,4 @@
-const sut = require('./sourceRepository');
+const sut = require('./repository');
 
 // Integration tests
 

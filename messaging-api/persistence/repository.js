@@ -53,10 +53,6 @@ function getSource(id) {
   ).then(resultSet => (resultSet.length > 0 ? resultSet[0] : null));
 }
 
-// Including as part of source repository rather than message repository
-// as source is the aggregate root.
-
-// TODO: Support pagination
 function getMessagesForSource(sourceId) {
   return query(
     `SELECT id, message, status, created_at, updated_at
