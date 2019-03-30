@@ -22,4 +22,13 @@ router.get('/:id', (req, res) => {
     .catch(err => errorHandler(err, res));
 });
 
+router.get('/:id/message', (req, res) => {
+  const id = req.params.id;
+
+  sourceRepository
+    .getMessagesForSource(id)
+    .then(messages => res.status(200).json(messages))
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;

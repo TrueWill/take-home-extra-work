@@ -40,3 +40,13 @@ test('single source route when not found', done => {
     .set('Authorization', 'Bearer ' + security.tokenForTesting)
     .expect(404, done);
 });
+
+test('messages for a source', done => {
+  supertest(app)
+    .get('/source/f4f96516-c5ec-43bb-ba21-da1f35dacf8a/message')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Content-Type', /json/)
+    .expect(res => expect(res.body.length).toBe(100))
+    .expect(200, done);
+});
