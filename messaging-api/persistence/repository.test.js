@@ -62,3 +62,10 @@ test('retrieve all messages', () => {
     .getMessages()
     .then(messages => expect(messages.length).toBe(17400));
 });
+
+test('create source', () => {
+  return sut.createSource('Foo', 'development', 'utf8').then(id => {
+    expect(id.length).toBe(36);
+    sut.hardDeleteSource(id);
+  });
+});
