@@ -28,6 +28,7 @@ function query(sql, params = {}) {
   });
 }
 
+// TODO: Add order
 function getSources() {
   return query('SELECT id, name FROM source WHERE deleted_at IS NULL;');
 }
@@ -43,9 +44,24 @@ function getSource(id) {
   ).then(resultSet => (resultSet.length > 0 ? resultSet[0] : null));
 }
 
+// Including as part of source repository rather than message repository
+// as source is the aggregate root.
+
+// TODO: Add order
+// TODO: Support pagination
+function getMessagesForSource(sourceId) {
+  return query(
+    'SELECT id, message, status, created_at, updated_at FROM message WHERE source_id = $sourceId AND deleted_at IS NULL;',
+    {
+      $sourceId: sourceId
+    }
+  );
+}
+
 module.exports = {
   open,
   close,
   getSources,
-  getSource
+  getSource,
+  getMessagesForSource
 };

@@ -23,3 +23,11 @@ test('retrieve single source when found', () => {
 test('retrieve single source when not found', () => {
   return sut.getSource('nosuch').then(source => expect(source).toBeNull());
 });
+
+test('retrieve all messages for a source', () => {
+  const sourceId = 'f4f96516-c5ec-43bb-ba21-da1f35dacf8a';
+
+  return sut
+    .getMessagesForSource(sourceId)
+    .then(messages => expect(messages.length).toBe(100));
+});
