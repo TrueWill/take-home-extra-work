@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Messages from './Messages';
+import MessageStatusCounts from './MessageStatusCounts';
 
 // TODO: Convert string to local date
 
-function SourceDetail({ source, messages, fetchMessagesForSource }) {
+function SourceDetail({
+  source,
+  messages,
+  messageStatusCounts,
+  fetchMessagesForSource,
+  fetchMessageStatusCountsForSource
+}) {
   const handleLoadMessagesClick = () => {
     fetchMessagesForSource(source.id);
+  };
+
+  const handleLoadMessageStatusCountsClick = () => {
+    fetchMessageStatusCountsForSource(source.id);
   };
 
   return (
@@ -18,6 +29,10 @@ function SourceDetail({ source, messages, fetchMessagesForSource }) {
       <div>Encoding: {source.encoding}</div>
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
+      <button type="button" onClick={handleLoadMessageStatusCountsClick}>
+        Load message status counts
+      </button>
+      <MessageStatusCounts counts={messageStatusCounts} />
       <button type="button" onClick={handleLoadMessagesClick}>
         Load messages
       </button>
@@ -36,7 +51,9 @@ SourceDetail.propTypes = {
     updated_at: PropTypes.string
   }).isRequired,
   messages: PropTypes.array.isRequired,
-  fetchMessagesForSource: PropTypes.func.isRequired
+  messageStatusCounts: PropTypes.array.isRequired,
+  fetchMessagesForSource: PropTypes.func.isRequired,
+  fetchMessageStatusCountsForSource: PropTypes.func.isRequired
 };
 
 export default SourceDetail;

@@ -3,6 +3,7 @@ export default {
     all: [],
     current: null,
     currentMessages: [],
+    currentMessageStatusCounts: [],
     error: null
   }
 };

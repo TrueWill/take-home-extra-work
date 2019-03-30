@@ -84,3 +84,31 @@ export function fetchMessagesForSource(sourceId) {
       });
   };
 }
+
+function fetchMessageStatusCountsForSourceSucceeded(counts) {
+  return {
+    type: types.FETCH_MESSAGE_STATUS_COUNTS_FOR_SOURCE_SUCCEEDED,
+    counts
+  };
+}
+
+function fetchMessageStatusCountsForSourceFailed(error) {
+  return {
+    type: types.FETCH_MESSAGE_STATUS_COUNTS_FOR_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function fetchMessageStatusCountsForSource(sourceId) {
+  return dispatch => {
+    api
+      .fetchMessageStatusCountsForSource(sourceId)
+      .then(resp => {
+        return dispatch(fetchMessageStatusCountsForSourceSucceeded(resp.data));
+      })
+      .catch(err => {
+        return dispatch(fetchMessageStatusCountsForSourceFailed(err.message));
+      });
+  };
+}
