@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 let db;
 
 function open() {
-  // TODO: Do not hardcode path
+  // TODO: Move hardcoded path to configuration
   // TODO: Change mode to read/write
   return new Promise(
     (resolve, reject) =>
@@ -30,12 +30,12 @@ function query(sql, params = {}) {
 
 // Arguably should be checking deleted_at against current date as well.
 
-// TODO: Add order
 function getSources() {
   return query(
     `SELECT id, name
     FROM source
-    WHERE deleted_at IS NULL;`
+    WHERE deleted_at IS NULL
+    ORDER BY name;`
   );
 }
 
@@ -56,14 +56,14 @@ function getSource(id) {
 // Including as part of source repository rather than message repository
 // as source is the aggregate root.
 
-// TODO: Add order
 // TODO: Support pagination
 function getMessagesForSource(sourceId) {
   return query(
     `SELECT id, message, status, created_at, updated_at
     FROM message
     WHERE source_id = $sourceId
-      AND deleted_at IS NULL;`,
+      AND deleted_at IS NULL
+    ORDER BY created_at, id;`,
     {
       $sourceId: sourceId
     }
