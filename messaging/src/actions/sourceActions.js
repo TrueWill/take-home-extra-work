@@ -69,11 +69,11 @@ function fetchMessagesForSourceFailed(error) {
   };
 }
 
-// thunk
-export function fetchMessagesForSource(sourceId) {
+// thunk - status (filter) is optional
+export function fetchMessagesForSource(sourceId, status) {
   return dispatch =>
     api
-      .fetchMessagesForSource(sourceId)
+      .fetchMessagesForSource(sourceId, status)
       .then(resp => {
         return dispatch(fetchMessagesForSourceSucceeded(resp.data));
       })

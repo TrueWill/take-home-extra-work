@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Messages({ sourceId, messages, fetchMessagesForSource }) {
+function Messages({ sourceId, status, messages, fetchMessagesForSource }) {
   useEffect(
     () => {
-      fetchMessagesForSource(sourceId);
+      fetchMessagesForSource(sourceId, status);
     },
-    [sourceId]
+    [sourceId, status]
   );
 
   const items = messages.map(message => (
@@ -17,7 +17,8 @@ function Messages({ sourceId, messages, fetchMessagesForSource }) {
 
   return (
     <div>
-      <h4>Messages</h4>
+      <h4>Messages for Source ID {sourceId}</h4>
+      {status && <div>Filter: Status = {status}</div>}
       <ul>{items}</ul>
     </div>
   );
@@ -25,6 +26,7 @@ function Messages({ sourceId, messages, fetchMessagesForSource }) {
 
 Messages.propTypes = {
   sourceId: PropTypes.string.isRequired,
+  status: PropTypes.string,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

@@ -8,12 +8,24 @@ function MessageStatusCounts({ counts, location }) {
 
   return (
     <div>
-      <h4>Message Statuses</h4>
-      <div>Error: {getStatusCount('error')}</div>
-      <div>Enqueued: {getStatusCount('enqueued')}</div>
-      <div>Finished: {getStatusCount('finished')}</div>
-      <div>Processing: {getStatusCount('processing')}</div>
-      <hr />
+      <h4>Message Statuses (click to view messages)</h4>
+      <div>
+        <Link to={location.pathname + '/messages/error'}>Error:</Link>{' '}
+        {getStatusCount('error')}
+      </div>
+      <div>
+        <Link to={location.pathname + '/messages/enqueued'}>Enqueued:</Link>{' '}
+        {getStatusCount('enqueued')}
+      </div>
+      <div>
+        <Link to={location.pathname + '/messages/finished'}>Finished:</Link>{' '}
+        {getStatusCount('finished')}
+      </div>
+      <div>
+        <Link to={location.pathname + '/messages/processing'}>Processing:</Link>{' '}
+        {getStatusCount('processing')}
+      </div>
+      <p />
       <Link to={location.pathname + '/messages'}>All messages for source</Link>
     </div>
   );

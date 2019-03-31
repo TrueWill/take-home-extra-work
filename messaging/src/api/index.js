@@ -32,8 +32,14 @@ export function fetchSource(id) {
   return client.get(`/source/${id}`, createHeaders());
 }
 
-export function fetchMessagesForSource(sourceId) {
-  return client.get(`/source/${sourceId}/message`, createHeaders());
+// status (filter) is optional
+export function fetchMessagesForSource(sourceId, status) {
+  const queryString = status ? '?status=' + status : '';
+
+  return client.get(
+    `/source/${sourceId}/message${queryString}`,
+    createHeaders()
+  );
 }
 
 export function fetchMessageStatusCountsForSource(sourceId) {
