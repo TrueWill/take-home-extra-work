@@ -1,5 +1,74 @@
 # Take-Home - SPA
 
+Sample application project.
+
+# Implementation notes
+
+## To do
+
+- Replace sample tokens with OAuth 2.0
+- Security audit
+- Regulatory compliance audit
+- SSL (both client and server)
+- Tighter CORS settings
+- Code review
+- Automate deployment
+- Move hardcoded values to configuration
+- Styling / UX / responsive design
+- Accessibility
+- Progress indicators
+- Pagination
+- Improved filtering / searching
+- Error handling / display / logging
+- Better middleware
+- Auditing (if appropriate)
+- Monitoring support (ping endpoint, etc.)
+- Date/time display in local time (if appropriate)
+- Internationalization (if required)
+- Improve test coverage
+- End-to-end and performance tests
+- Load testing
+- Performance tuning (if necessary)
+- Caching
+- Handle large numbers of messages
+- Browser compatibility testing
+
+Large volumes of messages *will* be an issue. Without seeing actual data it is difficult to determine what filters/searches are most appropriate. Something like [Elasticsearch](https://www.elastic.co/products/elasticsearch) might be appropriate.
+
+Note that, as per the specifications, the API supports features that are not surfaced in the UI. Whether or not deletes should cascade is an open question.
+
+## Technical details
+
+The client app is built with [React](https://reactjs.org/) and [Redux](https://redux.js.org/). It uses [Hooks](https://reactjs.org/docs/hooks-overview.html).
+
+The HTTP API is built with [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/). JWTs are used for basic security.
+
+To test:
+
+- cd to messaging to test the app, or messaging-api to test the API
+- `yarn test`
+- `a` to run all tests
+
+To run:
+
+- cd to messaging-api
+- `yarn start`
+- cd to messaging
+- `yarn start`
+
+In both cases you may need to edit the database path in 
+messaging-api/persistence/repository.js (in the `open` function; line 11 currently) first - I had issues getting that to work with a relative path.
+
+## Browser support
+
+Supports modern browsers (not tested in Internet Explorer; actually only tested in Chrome).
+
+Copyright &copy; 2019 William E. Sorensen. All rights reserved.
+
+---
+
+# Original requirements
+
 ## Getting things up and running
 
 - Clone or [fork](https://help.github.com/en/articles/fork-a-repo) this repoistory
@@ -35,7 +104,7 @@ Here is the basic API backend route structure we want to see:
 2) Allows a user to view a single source 
    - With more details about the source
    - All the messages for that source
-   - An element that displays the aggreate status of messages for a particular source (error, enqueued, finished, processing).
+   - An element that displays the aggregate status of messages for a particular source (error, enqueued, finished, processing).
 
 The expected time commitment for this activity is around 5-10 hours. If you find yourself getting far beyond this number, stop, commit what you have, and we can pick it up from there. If you have any questions or suggested improvements, reach out!
 
