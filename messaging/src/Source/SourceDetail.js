@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Messages from './Messages';
-import MessageStatusCounts from './MessageStatusCounts';
+import Messages from '../Sources/Messages';
+import MessageStatusCounts from '../Sources/MessageStatusCounts';
 
 // TODO: Convert string to local date
 
@@ -9,6 +9,7 @@ function SourceDetail({
   source,
   messages,
   messageStatusCounts,
+  fetchSource,
   fetchMessagesForSource,
   fetchMessageStatusCountsForSource
 }) {
@@ -52,6 +53,7 @@ SourceDetail.propTypes = {
   }).isRequired,
   messages: PropTypes.array.isRequired,
   messageStatusCounts: PropTypes.array.isRequired,
+  fetchSource: PropTypes.func.isRequired,
   fetchMessagesForSource: PropTypes.func.isRequired,
   fetchMessageStatusCountsForSource: PropTypes.func.isRequired
 };

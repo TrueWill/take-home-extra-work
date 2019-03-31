@@ -1,20 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SourceBasic from './SourceBasic';
-import SourceDetail from './SourceDetail';
+import SourceDetail from '../Source/SourceDetailContainer';
 
-// TODO: Probably want more connected containers - break up functionality
-
-function Sources({
-  sources,
-  currentSource,
-  currentMessages,
-  currentMessageStatusCounts,
-  fetchSources,
-  fetchSource,
-  fetchMessagesForSource,
-  fetchMessageStatusCountsForSource
-}) {
+function Sources({ sources, currentSource, fetchSources, fetchSource }) {
   useEffect(() => {
     fetchSources();
   }, []);
@@ -27,15 +16,7 @@ function Sources({
     <div>
       <h2>Sources</h2>
       <ul>{items}</ul>
-      {currentSource && (
-        <SourceDetail
-          source={currentSource}
-          messages={currentMessages}
-          messageStatusCounts={currentMessageStatusCounts}
-          fetchMessagesForSource={fetchMessagesForSource}
-          fetchMessageStatusCountsForSource={fetchMessageStatusCountsForSource}
-        />
-      )}
+      {currentSource && <SourceDetail />}
     </div>
   );
 }
@@ -43,12 +24,8 @@ function Sources({
 Sources.propTypes = {
   sources: PropTypes.array.isRequired,
   currentSource: PropTypes.object,
-  currentMessages: PropTypes.array.isRequired,
-  currentMessageStatusCounts: PropTypes.array.isRequired,
   fetchSources: PropTypes.func.isRequired,
-  fetchSource: PropTypes.func.isRequired,
-  fetchMessagesForSource: PropTypes.func.isRequired,
-  fetchMessageStatusCountsForSource: PropTypes.func.isRequired
+  fetchSource: PropTypes.func.isRequired
 };
 
 export default Sources;
