@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Messages from '../Sources/Messages';
 import MessageStatusCounts from '../Sources/MessageStatusCounts';
@@ -6,6 +6,7 @@ import MessageStatusCounts from '../Sources/MessageStatusCounts';
 // TODO: Convert string to local date
 
 function SourceDetail({
+  sourceId,
   source,
   messages,
   messageStatusCounts,
@@ -13,6 +14,13 @@ function SourceDetail({
   fetchMessagesForSource,
   fetchMessageStatusCountsForSource
 }) {
+  useEffect(
+    () => {
+      fetchSource(sourceId);
+    },
+    [sourceId]
+  );
+
   const handleLoadMessagesClick = () => {
     fetchMessagesForSource(source.id);
   };
@@ -20,6 +28,8 @@ function SourceDetail({
   const handleLoadMessageStatusCountsClick = () => {
     fetchMessageStatusCountsForSource(source.id);
   };
+
+  if (!source) return null;
 
   return (
     <div>
@@ -43,6 +53,7 @@ function SourceDetail({
 }
 
 SourceDetail.propTypes = {
+  sourceId: PropTypes.string.isRequired,
   source: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -50,7 +61,7 @@ SourceDetail.propTypes = {
     encoding: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     updated_at: PropTypes.string
-  }).isRequired,
+  }),
   messages: PropTypes.array.isRequired,
   messageStatusCounts: PropTypes.array.isRequired,
   fetchSource: PropTypes.func.isRequired,
