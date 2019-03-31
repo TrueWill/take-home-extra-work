@@ -17,7 +17,7 @@ function fetchSourcesFailed(error) {
 
 // thunk
 export function fetchSources() {
-  return dispatch => {
+  return dispatch =>
     api
       .fetchSources()
       .then(resp => {
@@ -26,7 +26,6 @@ export function fetchSources() {
       .catch(err => {
         return dispatch(fetchSourcesFailed(err.message));
       });
-  };
 }
 
 function fetchSourceSucceeded(source) {
@@ -45,7 +44,7 @@ function fetchSourceFailed(error) {
 
 // thunk
 export function fetchSource(id) {
-  return dispatch => {
+  return dispatch =>
     api
       .fetchSource(id)
       .then(resp => {
@@ -54,7 +53,6 @@ export function fetchSource(id) {
       .catch(err => {
         return dispatch(fetchSourceFailed(err.message));
       });
-  };
 }
 
 function fetchMessagesForSourceSucceeded(messages) {
@@ -73,7 +71,7 @@ function fetchMessagesForSourceFailed(error) {
 
 // thunk
 export function fetchMessagesForSource(sourceId) {
-  return dispatch => {
+  return dispatch =>
     api
       .fetchMessagesForSource(sourceId)
       .then(resp => {
@@ -82,7 +80,6 @@ export function fetchMessagesForSource(sourceId) {
       .catch(err => {
         return dispatch(fetchMessagesForSourceFailed(err.message));
       });
-  };
 }
 
 function fetchMessageStatusCountsForSourceSucceeded(counts) {
@@ -101,7 +98,7 @@ function fetchMessageStatusCountsForSourceFailed(error) {
 
 // thunk
 export function fetchMessageStatusCountsForSource(sourceId) {
-  return dispatch => {
+  return dispatch =>
     api
       .fetchMessageStatusCountsForSource(sourceId)
       .then(resp => {
@@ -110,5 +107,4 @@ export function fetchMessageStatusCountsForSource(sourceId) {
       .catch(err => {
         return dispatch(fetchMessageStatusCountsForSourceFailed(err.message));
       });
-  };
 }
