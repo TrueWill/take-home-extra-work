@@ -1,8 +1,6 @@
 import initialState from './initialState';
 import * as types from '../constants/actionTypes';
 
-// TODO: Add reducer tests
-
 export default (state = initialState.sources, action) => {
   switch (action.type) {
     case types.FETCH_SOURCES_SUCCEEDED:

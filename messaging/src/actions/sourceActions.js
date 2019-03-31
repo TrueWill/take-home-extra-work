@@ -1,14 +1,16 @@
 import * as types from '../constants/actionTypes';
 import * as api from '../api';
 
-function fetchSourcesSucceeded(sources) {
+// Non-thunks are exported only for tests
+
+export function fetchSourcesSucceeded(sources) {
   return {
     type: types.FETCH_SOURCES_SUCCEEDED,
     sources
   };
 }
 
-function fetchSourcesFailed(error) {
+export function fetchSourcesFailed(error) {
   return {
     type: types.FETCH_SOURCES_FAILED,
     error
@@ -28,14 +30,14 @@ export function fetchSources() {
       });
 }
 
-function fetchSourceSucceeded(source) {
+export function fetchSourceSucceeded(source) {
   return {
     type: types.FETCH_SOURCE_SUCCEEDED,
     source
   };
 }
 
-function fetchSourceFailed(error) {
+export function fetchSourceFailed(error) {
   return {
     type: types.FETCH_SOURCE_FAILED,
     error
@@ -55,14 +57,14 @@ export function fetchSource(id) {
       });
 }
 
-function fetchMessagesForSourceSucceeded(messages) {
+export function fetchMessagesForSourceSucceeded(messages) {
   return {
     type: types.FETCH_MESSAGES_FOR_SOURCE_SUCCEEDED,
     messages
   };
 }
 
-function fetchMessagesForSourceFailed(error) {
+export function fetchMessagesForSourceFailed(error) {
   return {
     type: types.FETCH_MESSAGES_FOR_SOURCE_FAILED,
     error
@@ -82,14 +84,14 @@ export function fetchMessagesForSource(sourceId, status) {
       });
 }
 
-function fetchMessageStatusCountsForSourceSucceeded(counts) {
+export function fetchMessageStatusCountsForSourceSucceeded(counts) {
   return {
     type: types.FETCH_MESSAGE_STATUS_COUNTS_FOR_SOURCE_SUCCEEDED,
     counts
   };
 }
 
-function fetchMessageStatusCountsForSourceFailed(error) {
+export function fetchMessageStatusCountsForSourceFailed(error) {
   return {
     type: types.FETCH_MESSAGE_STATUS_COUNTS_FOR_SOURCE_FAILED,
     error
