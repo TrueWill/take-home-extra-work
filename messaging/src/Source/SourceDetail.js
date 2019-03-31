@@ -16,17 +16,16 @@ function SourceDetail({
 }) {
   useEffect(
     () => {
-      fetchSource(sourceId);
+      // Need to chain, otherwise FETCH_SOURCE_SUCCEEDED will clear currentMessageStatusCounts
+      fetchSource(sourceId).then(() =>
+        fetchMessageStatusCountsForSource(sourceId)
+      );
     },
     [sourceId]
   );
 
   const handleLoadMessagesClick = () => {
     fetchMessagesForSource(source.id);
-  };
-
-  const handleLoadMessageStatusCountsClick = () => {
-    fetchMessageStatusCountsForSource(source.id);
   };
 
   if (!source) return null;
@@ -40,9 +39,6 @@ function SourceDetail({
       <div>Encoding: {source.encoding}</div>
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
-      <button type="button" onClick={handleLoadMessageStatusCountsClick}>
-        Load message status counts
-      </button>
       <MessageStatusCounts counts={messageStatusCounts} />
       <button type="button" onClick={handleLoadMessagesClick}>
         Load messages
