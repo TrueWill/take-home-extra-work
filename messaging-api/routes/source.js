@@ -1,6 +1,7 @@
 const express = require('express');
 const repository = require('../persistence/repository');
 const errorHandler = require('../errorHandler');
+const security = require('../security');
 
 const router = express.Router();
 
@@ -67,8 +68,14 @@ router.put('/:id', (req, res) => {
 });
 
 // Delete source (soft, not cascading)
+// Requires administrative role
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
+
+  if (!security.isAuthorizedForAdministration(req)) {
+    res.sendStatus(403);
+    return;
+  }
 
   repository
     .deleteSource(id)

@@ -145,16 +145,25 @@ test('update source route', done => {
     });
 });
 
-test('delete source route', done => {
+test('delete source route when admin', done => {
   const id = '4e7cb748-9d37-4705-9d16-bd68a80afc39';
 
   supertest(app)
     .delete('/source/' + id)
-    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .set('Authorization', 'Bearer ' + security.adminTokenForTesting)
     .expect(204)
     .end(err => {
       if (err) return done(err);
 
       repository.undeleteSource(id).finally(done);
     });
+});
+
+test('delete source route when not admin', done => {
+  const id = '4e7cb748-9d37-4705-9d16-bd68a80afc39';
+
+  supertest(app)
+    .delete('/source/' + id)
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect(403, done);
 });

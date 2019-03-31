@@ -11,6 +11,14 @@ const secret = 'DoNotUse';
 const tokenForTesting =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJpbGwiLCJpYXQiOjE1MTYyMzkwMjJ9.C_Dhi8YKg4Qokrrv6xxEXM_Bqk0XfEexn1Efjm3Wppw';
 
+const adminTokenForTesting =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IldpbGxpYW0iLCJpYXQiOjE1MTYyMzkwMjIsImFkbWluIjp0cnVlfQ.AsVeQPjJMPgRLFXVJGvca5Ay-ZOdKvDPmqEeRo3POmQ';
+
+function isAuthorizedForAdministration(req) {
+  // Check claims for role
+  return req.decoded.admin === true;
+}
+
 // Middleware
 const checkToken = (req, res, next) => {
   let token = req.headers['authorization'];
@@ -35,5 +43,7 @@ const checkToken = (req, res, next) => {
 
 module.exports = {
   checkToken,
-  tokenForTesting
+  isAuthorizedForAdministration,
+  tokenForTesting,
+  adminTokenForTesting
 };
