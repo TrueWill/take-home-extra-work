@@ -66,6 +66,21 @@ function getMessagesForSource(sourceId) {
   );
 }
 
+function getMessagesForSourceWithStatus(sourceId, status) {
+  return query(
+    `SELECT id, message, status, created_at, updated_at
+    FROM message
+    WHERE source_id = $sourceId
+      AND status = $status
+      AND deleted_at IS NULL
+    ORDER BY created_at, id;`,
+    {
+      $sourceId: sourceId,
+      $status: status
+    }
+  );
+}
+
 function getMessageStatusCountsForSource(sourceId) {
   return query(
     `SELECT status, COUNT(id) AS count
@@ -189,6 +204,7 @@ module.exports = {
   getSources,
   getSource,
   getMessagesForSource,
+  getMessagesForSourceWithStatus,
   getMessageStatusCountsForSource,
   getMessages,
   getMessage,

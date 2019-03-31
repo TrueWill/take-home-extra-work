@@ -32,6 +32,15 @@ test('retrieve all messages for a source', () => {
     .then(messages => expect(messages.length).toBe(100));
 });
 
+test('retrieve all messages with a given status for a source', () => {
+  const sourceId = 'f4f96516-c5ec-43bb-ba21-da1f35dacf8a';
+  const status = 'finished';
+
+  return sut
+    .getMessagesForSourceWithStatus(sourceId, status)
+    .then(messages => expect(messages.length).toBe(15));
+});
+
 test('retrieve aggregate status of messages for a source', () => {
   const sourceId = 'f4f96516-c5ec-43bb-ba21-da1f35dacf8a';
 

@@ -52,6 +52,16 @@ test('messages for a source', done => {
     .expect(200, done);
 });
 
+test('messages for a source filtered by status', done => {
+  supertest(app)
+    .get('/source/f4f96516-c5ec-43bb-ba21-da1f35dacf8a/message?status=finished')
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect('Content-Type', /json/)
+    .expect(res => expect(res.body.length).toBe(15))
+    .expect(200, done);
+});
+
 test('message status counts for a source', done => {
   supertest(app)
     .get('/source/f4f96516-c5ec-43bb-ba21-da1f35dacf8a/message/status')
