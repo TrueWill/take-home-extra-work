@@ -66,4 +66,16 @@ router.put('/:id', (req, res) => {
     .catch(err => errorHandler(err, res));
 });
 
+// Delete source (soft, not cascading)
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+
+  repository
+    .deleteSource(id)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;

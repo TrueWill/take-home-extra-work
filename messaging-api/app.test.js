@@ -135,12 +135,26 @@ test('update source route', done => {
       if (err) return done(err);
 
       // Restore - note that updated_at is still changed
-      repository.updateSource(id, {
-        name: 'My Health System',
-        environment: 'production',
-        encoding: 'latin1'
-      });
+      repository
+        .updateSource(id, {
+          name: 'My Health System',
+          environment: 'production',
+          encoding: 'latin1'
+        })
+        .finally(done);
+    });
+});
 
-      done();
+test('delete source route', done => {
+  const id = '4e7cb748-9d37-4705-9d16-bd68a80afc39';
+
+  supertest(app)
+    .delete('/source/' + id)
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect(204)
+    .end(err => {
+      if (err) return done(err);
+
+      repository.undeleteSource(id).finally(done);
     });
 });
