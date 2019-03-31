@@ -53,4 +53,17 @@ router.post('/', (req, res) => {
     .catch(err => errorHandler(err, res));
 });
 
+// Update source
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const source = req.body;
+
+  repository
+    .updateSource(id, source)
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(err => errorHandler(err, res));
+});
+
 module.exports = router;

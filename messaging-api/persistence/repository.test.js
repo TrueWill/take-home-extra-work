@@ -69,3 +69,29 @@ test('create source', () => {
     sut.hardDeleteSource(id);
   });
 });
+
+test('update source', () => {
+  const id = 'bd5ab29c-af66-44c0-b2e9-f36eee05af97';
+  const values = {
+    name: 'New Name',
+    environment: 'staging',
+    encoding: 'utf8'
+  };
+
+  return sut
+    .updateSource(id, values)
+    .then(() => sut.getSource(id))
+    .then(source => {
+      expect(source.name).toBe('New Name');
+      expect(source.environment).toBe('staging');
+      expect(source.encoding).toBe('utf8');
+    })
+    .then(() => {
+      // Restore - note that updated_at is still changed
+      sut.updateSource(id, {
+        name: 'My Health System',
+        environment: 'production',
+        encoding: 'latin1'
+      });
+    });
+});

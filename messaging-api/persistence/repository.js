@@ -122,6 +122,23 @@ function createSource(name, environment, encoding) {
   });
 }
 
+function updateSource(id, values) {
+  return new Promise((resolve, reject) => {
+    db.run(
+      `UPDATE source
+      SET name = $name, environment = $environment, encoding = $encoding, updated_at = datetime('now')
+      WHERE id = $id;`,
+      {
+        $id: id,
+        $name: values.name,
+        $environment: values.environment,
+        $encoding: values.encoding
+      },
+      err => (err ? reject(err) : resolve())
+    );
+  });
+}
+
 // For tests
 function hardDeleteSource(id) {
   return new Promise((resolve, reject) => {
@@ -145,5 +162,6 @@ module.exports = {
   getMessages,
   getMessage,
   createSource,
+  updateSource,
   hardDeleteSource
 };

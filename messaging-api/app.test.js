@@ -116,3 +116,31 @@ test('create source route', done => {
       }
     });
 });
+
+test('update source route', done => {
+  const id = 'bd5ab29c-af66-44c0-b2e9-f36eee05af97';
+  const data = {
+    name: 'New Name',
+    environment: 'staging',
+    encoding: 'utf8'
+  };
+
+  supertest(app)
+    .put('/source/' + id)
+    .send(data)
+    .set('Accept', 'application/json')
+    .set('Authorization', 'Bearer ' + security.tokenForTesting)
+    .expect(204)
+    .end(err => {
+      if (err) return done(err);
+
+      // Restore - note that updated_at is still changed
+      repository.updateSource(id, {
+        name: 'My Health System',
+        environment: 'production',
+        encoding: 'latin1'
+      });
+
+      done();
+    });
+});
