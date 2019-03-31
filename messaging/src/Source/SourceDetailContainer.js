@@ -4,17 +4,12 @@ import {
   fetchMessagesForSource,
   fetchMessageStatusCountsForSource
 } from '../actions/sourceActions';
-import {
-  getCurrentSource,
-  getCurrentMessages,
-  getCurrentMessageStatusCounts
-} from '../selectors/simple';
+import { getCurrentSource, getCurrentMessages } from '../selectors/simple';
 import SourceDetail from './SourceDetail';
 
 const mapStateToProps = state => ({
   source: getCurrentSource(state),
-  messages: getCurrentMessages(state),
-  messageStatusCounts: getCurrentMessageStatusCounts(state)
+  messages: getCurrentMessages(state)
 });
 
 const mapDispatchToProps = {
