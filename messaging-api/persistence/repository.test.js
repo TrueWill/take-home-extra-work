@@ -95,3 +95,15 @@ test('update source', () => {
       });
     });
 });
+
+test('soft-delete source', () => {
+  const id = '4e7cb748-9d37-4705-9d16-bd68a80afc39';
+
+  return sut
+    .deleteSource(id)
+    .then(() => sut.getSources())
+    .then(sources => expect(sources.length).toBe(5))
+    .then(() => {
+      sut.undeleteSource(id);
+    });
+});

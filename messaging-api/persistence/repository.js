@@ -139,6 +139,37 @@ function updateSource(id, values) {
   });
 }
 
+// Soft delete.
+// Currently NOT implementing cascading delete on related messages.
+function deleteSource(id) {
+  return new Promise((resolve, reject) => {
+    db.run(
+      `UPDATE source
+      SET deleted_at = datetime('now')
+      WHERE id = $id;`,
+      {
+        $id: id
+      },
+      err => (err ? reject(err) : resolve())
+    );
+  });
+}
+
+// For tests
+function undeleteSource(id) {
+  return new Promise((resolve, reject) => {
+    db.run(
+      `UPDATE source
+      SET deleted_at = NULL
+      WHERE id = $id;`,
+      {
+        $id: id
+      },
+      err => (err ? reject(err) : resolve())
+    );
+  });
+}
+
 // For tests
 function hardDeleteSource(id) {
   return new Promise((resolve, reject) => {
@@ -163,5 +194,7 @@ module.exports = {
   getMessage,
   createSource,
   updateSource,
+  deleteSource,
+  undeleteSource,
   hardDeleteSource
 };
