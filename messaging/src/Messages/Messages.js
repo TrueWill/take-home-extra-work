@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function Messages({ sourceId, status, messages, fetchMessagesForSource }) {
   useEffect(
@@ -17,6 +18,7 @@ function Messages({ sourceId, status, messages, fetchMessagesForSource }) {
 
   return (
     <div>
+      <Link to={'/source/' + sourceId}>Back</Link>
       <h4>Messages for Source ID {sourceId}</h4>
       {status && <div>Filter: Status = {status}</div>}
       <ul>{items}</ul>
