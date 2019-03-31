@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Sources from './Sources/SourcesContainer.js';
 import SourceDetail from './Source/SourceDetailContainer.js';
@@ -10,6 +10,7 @@ function App() {
     <Router>
       <div className="App">
         <h1>Messaging</h1>
+        <Link to="/">Home</Link>
         <Route path="/" exact component={Sources} />
         <Route
           path="/source/:sourceId"
