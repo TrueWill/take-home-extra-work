@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// TODO: Update
+// TODO: Move to config
 const API_BASE_URL = 'http://localhost:8880';
 
 // This is **ONLY** an example.
