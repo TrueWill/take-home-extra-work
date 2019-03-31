@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Sources from './Sources/SourcesContainer.js';
 import SourceDetail from './Source/SourceDetailContainer.js';
+import Messages from './Messages/MessagesContainer';
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
           render={props => (
             <SourceDetail sourceId={props.match.params.sourceId} />
           )}
+        />
+        <Route
+          path="/source/:sourceId/messages"
+          exact
+          render={props => <Messages sourceId={props.match.params.sourceId} />}
         />
       </div>
     </Router>

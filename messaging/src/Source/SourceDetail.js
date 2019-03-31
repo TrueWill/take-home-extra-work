@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Messages from '../Sources/Messages';
 import MessageStatusCounts from './MessageStatusCountsContainer';
 
 // TODO: Convert string to local date
@@ -8,9 +7,7 @@ import MessageStatusCounts from './MessageStatusCountsContainer';
 function SourceDetail({
   sourceId,
   source,
-  messages,
   fetchSource,
-  fetchMessagesForSource,
   fetchMessageStatusCountsForSource
 }) {
   useEffect(
@@ -22,10 +19,6 @@ function SourceDetail({
     },
     [sourceId]
   );
-
-  const handleLoadMessagesClick = () => {
-    fetchMessagesForSource(source.id);
-  };
 
   if (!source) return null;
 
@@ -39,10 +32,6 @@ function SourceDetail({
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
       <MessageStatusCounts />
-      <button type="button" onClick={handleLoadMessagesClick}>
-        Load messages
-      </button>
-      <Messages messages={messages} />
     </div>
   );
 }
@@ -57,9 +46,7 @@ SourceDetail.propTypes = {
     created_at: PropTypes.string.isRequired,
     updated_at: PropTypes.string
   }),
-  messages: PropTypes.array.isRequired,
   fetchSource: PropTypes.func.isRequired,
-  fetchMessagesForSource: PropTypes.func.isRequired,
   fetchMessageStatusCountsForSource: PropTypes.func.isRequired
 };
 

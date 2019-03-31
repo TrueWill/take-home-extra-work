@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function Messages({ messages }) {
+function Messages({ sourceId, messages, fetchMessagesForSource }) {
+  useEffect(
+    () => {
+      fetchMessagesForSource(sourceId);
+    },
+    [sourceId]
+  );
+
   const items = messages.map(message => (
     <li key={message.id}>
       ID: {message.id} Message: {message.message} Status: {message.status}
@@ -17,6 +24,7 @@ function Messages({ messages }) {
 }
 
 Messages.propTypes = {
+  sourceId: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -25,7 +33,8 @@ Messages.propTypes = {
       created_at: PropTypes.string.isRequired,
       updated_at: PropTypes.string
     })
-  ).isRequired
+  ).isRequired,
+  fetchMessagesForSource: PropTypes.func.isRequired
 };
 
 export default Messages;
