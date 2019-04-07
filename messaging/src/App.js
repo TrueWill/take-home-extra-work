@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Sources from './Sources/SourcesContainer';
 import SourceDetail from './Source/SourceDetailContainer';
-import EditSource from './Source/EditSource';
+import EditSource from './Source/EditSourceContainer';
 import Messages from './Messages/MessagesContainer';
 
 function App() {
