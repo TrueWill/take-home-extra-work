@@ -73,6 +73,18 @@ export default (state = initialState.sources, action) => {
       };
     case types.UPDATE_SOURCE_FAILED:
       return { ...state, newLocation: null, error: action.error };
+    case types.DELETE_SOURCE_SUCCEEDED:
+      return {
+        ...state,
+        newLocation: null,
+        error: null
+      };
+    case types.DELETE_SOURCE_FAILED:
+      return {
+        ...state,
+        newLocation: null,
+        error: action.error
+      };
     default:
       return state;
   }

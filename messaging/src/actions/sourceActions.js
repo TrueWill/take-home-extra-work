@@ -163,3 +163,29 @@ export function updateSource(id, values) {
         return dispatch(updateSourceFailed(err.message));
       });
 }
+
+export function deleteSourceSucceeded() {
+  return {
+    type: types.DELETE_SOURCE_SUCCEEDED
+  };
+}
+
+export function deleteSourceFailed(error) {
+  return {
+    type: types.DELETE_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function deleteSource(id) {
+  return dispatch =>
+    api
+      .deleteSource(id)
+      .then(resp => {
+        return dispatch(deleteSourceSucceeded());
+      })
+      .catch(err => {
+        return dispatch(deleteSourceFailed(err.message));
+      });
+}

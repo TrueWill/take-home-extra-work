@@ -53,3 +53,7 @@ export function createSource(values) {
 export function updateSource(sourceId, values) {
   return client.put(`/source/${sourceId}`, values, createHeaders());
 }
+
+export function deleteSource(sourceId) {
+  return client.delete(`/source/${sourceId}`, createHeaders());
+}
