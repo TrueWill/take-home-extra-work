@@ -45,3 +45,7 @@ export function fetchMessagesForSource(sourceId, status) {
 export function fetchMessageStatusCountsForSource(sourceId) {
   return client.get(`/source/${sourceId}/message/status`, createHeaders());
 }
+
+export function updateSource(sourceId, values) {
+  return client.put(`/source/${sourceId}`, values, createHeaders());
+}

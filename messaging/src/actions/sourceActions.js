@@ -110,3 +110,29 @@ export function fetchMessageStatusCountsForSource(sourceId) {
         return dispatch(fetchMessageStatusCountsForSourceFailed(err.message));
       });
 }
+
+export function updateSourceSucceeded() {
+  return {
+    type: types.UPDATE_SOURCE_SUCCEEDED
+  };
+}
+
+export function updateSourceFailed(error) {
+  return {
+    type: types.UPDATE_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function updateSource(id, values) {
+  return dispatch =>
+    api
+      .updateSource(id, values)
+      .then(resp => {
+        return dispatch(updateSourceSucceeded());
+      })
+      .catch(err => {
+        return dispatch(updateSourceFailed(err.message));
+      });
+}

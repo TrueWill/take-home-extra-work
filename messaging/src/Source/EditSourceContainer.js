@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchSource } from '../actions/sourceActions';
+import { fetchSource, updateSource } from '../actions/sourceActions';
 import { getCurrentSource } from '../selectors/simple';
 import EditSource from './EditSource';
 
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchSource
+  fetchSource,
+  updateSource
 };
 
 export default connect(

@@ -33,7 +33,7 @@ const encodingOptions = encodings.map(enc => (
   </option>
 ));
 
-function EditSource({ sourceId, source, fetchSource }) {
+function EditSource({ sourceId, source, fetchSource, updateSource }) {
   useEffect(
     () => {
       // If loading page directly then need to fetch data
@@ -44,6 +44,9 @@ function EditSource({ sourceId, source, fetchSource }) {
   );
 
   if (!source) return null;
+
+  // NOTE: To avoid overwrites with optimistic locking, check updated_at
+  // against initial value server-side before committing.
 
   return (
     <div>
@@ -57,8 +60,9 @@ function EditSource({ sourceId, source, fetchSource }) {
         }}
         validate={validate}
         onSubmit={(values, actions) => {
-          console.log(values);
-          actions.setSubmitting(false);
+          updateSource(sourceId, values).finally(() => {
+            actions.setSubmitting(false);
+          });
         }}
         render={({ errors, status, touched, isSubmitting, dirty }) => (
           <Form>
@@ -100,7 +104,8 @@ EditSource.propTypes = {
     created_at: PropTypes.string.isRequired,
     updated_at: PropTypes.string
   }),
-  fetchSource: PropTypes.func.isRequired
+  fetchSource: PropTypes.func.isRequired,
+  updateSource: PropTypes.func.isRequired
 };
 
 export default EditSource;
