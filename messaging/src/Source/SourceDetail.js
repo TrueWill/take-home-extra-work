@@ -9,6 +9,7 @@ function SourceDetail({
   sourceId,
   source,
   location,
+  history,
   fetchSource,
   fetchMessageStatusCountsForSource,
   deleteSource
@@ -24,7 +25,9 @@ function SourceDetail({
   );
 
   const handleDeleteClick = () => {
-    deleteSource(sourceId);
+    deleteSource(sourceId).then(() => {
+      history.push('/');
+    });
   };
 
   if (!source) {
@@ -41,6 +44,7 @@ function SourceDetail({
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
       <Link to={location.pathname + '/edit'}>Edit</Link>
+      <br />
       <button type="button" onClick={handleDeleteClick}>
         Delete
       </button>
@@ -61,6 +65,9 @@ SourceDetail.propTypes = {
   }),
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
   }).isRequired,
   fetchSource: PropTypes.func.isRequired,
   fetchMessageStatusCountsForSource: PropTypes.func.isRequired,
