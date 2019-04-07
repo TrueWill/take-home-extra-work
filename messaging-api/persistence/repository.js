@@ -8,7 +8,7 @@ function open() {
   return new Promise(
     (resolve, reject) =>
       (db = new sqlite3.Database(
-        '/Users/bsorensen/take-home/db.sqlite',
+        '/Users/bsorensen/take-home-extra-work/db.sqlite',
         sqlite3.OPEN_READWRITE,
         err => (err ? reject(err) : resolve())
       ))
