@@ -1,7 +1,23 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-//import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+function validate(values) {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = 'Name is required';
+  } else if (values.name.length > 255) {
+    errors.name = 'Name must be 255 characters or less';
+  }
+
+  return errors;
+}
 
 function EditSource({ sourceId, source, fetchSource }) {
   useEffect(
@@ -13,10 +29,37 @@ function EditSource({ sourceId, source, fetchSource }) {
     [sourceId]
   );
 
+  if (!source) return null;
+
   return (
     <div>
       <Link to={'/source/' + sourceId}>Back</Link>
       <h4>Edit Source ID {sourceId}</h4>
+      <Formik
+        initialValues={{
+          name: source.name,
+          environment: source.environment,
+          encoding: source.encoding
+        }}
+        validate={validate}
+        onSubmit={(values, actions) => {
+          console.log(values);
+          actions.setSubmitting(false);
+        }}
+        render={({ errors, status, touched, isSubmitting, dirty }) => (
+          <Form>
+            <label>
+              Name: <Field type="text" name="name" />
+              <ErrorMessage name="name" component="div" />
+            </label>
+            <input
+              type="submit"
+              value="Save"
+              disabled={isSubmitting || !isEmpty(errors) || !dirty}
+            />
+          </Form>
+        )}
+      />
     </div>
   );
 }
