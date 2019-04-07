@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
   fetchSource,
-  fetchMessageStatusCountsForSource
+  fetchMessageStatusCountsForSource,
+  deleteSource
 } from '../actions/sourceActions';
 import { getCurrentSource } from '../selectors/simple';
 import SourceDetail from './SourceDetail';
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchSource,
-  fetchMessageStatusCountsForSource
+  fetchMessageStatusCountsForSource,
+  deleteSource
 };
 
 export default withRouter(

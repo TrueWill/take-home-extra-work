@@ -8,9 +8,10 @@ import MessageStatusCounts from './MessageStatusCountsContainer';
 function SourceDetail({
   sourceId,
   source,
+  location,
   fetchSource,
   fetchMessageStatusCountsForSource,
-  location
+  deleteSource
 }) {
   useEffect(
     () => {
@@ -22,7 +23,13 @@ function SourceDetail({
     [sourceId]
   );
 
-  if (!source) return null;
+  const handleDeleteClick = () => {
+    deleteSource(sourceId);
+  };
+
+  if (!source) {
+    return null;
+  }
 
   return (
     <div>
@@ -34,6 +41,9 @@ function SourceDetail({
       <div>Created: {source.created_at}</div>
       <div>Updated: {source.updated_at}</div>
       <Link to={location.pathname + '/edit'}>Edit</Link>
+      <button type="button" onClick={handleDeleteClick}>
+        Delete
+      </button>
       <MessageStatusCounts />
     </div>
   );
@@ -53,7 +63,8 @@ SourceDetail.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired,
   fetchSource: PropTypes.func.isRequired,
-  fetchMessageStatusCountsForSource: PropTypes.func.isRequired
+  fetchMessageStatusCountsForSource: PropTypes.func.isRequired,
+  deleteSource: PropTypes.func.isRequired
 };
 
 export default SourceDetail;

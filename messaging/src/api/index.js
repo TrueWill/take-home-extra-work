@@ -8,14 +8,17 @@ const API_BASE_URL = 'http://localhost:8880';
 // Typically you would use OAuth 2 with an authorization server.
 // For the demo, the client hardcodes a token generated with
 // https://jwt.io/ using the secret 'DoNotUse' and the HS256 algorithm.
-const token =
+const standardToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJpbGwiLCJpYXQiOjE1MTYyMzkwMjJ9.C_Dhi8YKg4Qokrrv6xxEXM_Bqk0XfEexn1Efjm3Wppw';
+
+const adminToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IldpbGxpYW0iLCJpYXQiOjE1MTYyMzkwMjIsImFkbWluIjp0cnVlfQ.AsVeQPjJMPgRLFXVJGvca5Ay-ZOdKvDPmqEeRo3POmQ';
 
 const client = axios.create({
   baseURL: API_BASE_URL + '/'
 });
 
-function createHeaders() {
+function createHeaders(token = standardToken) {
   return {
     headers: {
       'Content-Type': 'application/json',
@@ -55,5 +58,5 @@ export function updateSource(sourceId, values) {
 }
 
 export function deleteSource(sourceId) {
-  return client.delete(`/source/${sourceId}`, createHeaders());
+  return client.delete(`/source/${sourceId}`, createHeaders(adminToken));
 }
