@@ -25,6 +25,11 @@ function SourceDetail({
   );
 
   const handleDeleteClick = () => {
+    // Very basic confirmation
+    if (!window.confirm('Delete this source?')) {
+      return;
+    }
+
     deleteSource(sourceId).then(() => {
       history.push('/');
     });
