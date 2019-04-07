@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { fetchSource, updateSource } from '../actions/sourceActions';
 import { getCurrentSource } from '../selectors/simple';
 import EditSource from './EditSource';
@@ -12,7 +13,9 @@ const mapDispatchToProps = {
   updateSource
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditSource);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(EditSource)
+);

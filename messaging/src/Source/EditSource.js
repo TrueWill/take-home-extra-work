@@ -33,7 +33,7 @@ const encodingOptions = encodings.map(enc => (
   </option>
 ));
 
-function EditSource({ sourceId, source, fetchSource, updateSource }) {
+function EditSource({ sourceId, source, history, fetchSource, updateSource }) {
   useEffect(
     () => {
       // If loading page directly then need to fetch data
@@ -60,9 +60,13 @@ function EditSource({ sourceId, source, fetchSource, updateSource }) {
         }}
         validate={validate}
         onSubmit={(values, actions) => {
-          updateSource(sourceId, values).finally(() => {
-            actions.setSubmitting(false);
-          });
+          updateSource(sourceId, values)
+            .then(() => {
+              history.push('/source/' + sourceId);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
+            });
         }}
         render={({ errors, status, touched, isSubmitting, dirty }) => (
           <Form>
@@ -104,6 +108,9 @@ EditSource.propTypes = {
     created_at: PropTypes.string.isRequired,
     updated_at: PropTypes.string
   }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
   fetchSource: PropTypes.func.isRequired,
   updateSource: PropTypes.func.isRequired
 };
