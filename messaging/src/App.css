@@ -5,3 +5,7 @@
 ul {
   list-style-position: inside;
 }
+
+label {
+  display: block;
+}
