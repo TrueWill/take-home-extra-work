@@ -5,7 +5,7 @@ import Sources from './Sources/SourcesContainer';
 import SourceDetail from './Source/SourceDetailContainer';
 import EditSource from './Source/EditSourceContainer';
 import Messages from './Messages/MessagesContainer';
-import CreateSource from './Source/CreateSource';
+import CreateSource from './Source/CreateSourceContainer';
 
 function App() {
   return (

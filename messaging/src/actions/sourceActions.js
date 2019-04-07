@@ -111,6 +111,33 @@ export function fetchMessageStatusCountsForSource(sourceId) {
       });
 }
 
+export function createSourceSucceeded(newLocation) {
+  return {
+    type: types.CREATE_SOURCE_SUCCEEDED,
+    newLocation
+  };
+}
+
+export function createSourceFailed(error) {
+  return {
+    type: types.CREATE_SOURCE_FAILED,
+    error
+  };
+}
+
+// thunk
+export function createSource(values) {
+  return dispatch =>
+    api
+      .createSource(values)
+      .then(resp => {
+        return dispatch(createSourceSucceeded(resp.headers.location));
+      })
+      .catch(err => {
+        return dispatch(createSourceFailed(err.message));
+      });
+}
+
 export function updateSourceSucceeded() {
   return {
     type: types.UPDATE_SOURCE_SUCCEEDED

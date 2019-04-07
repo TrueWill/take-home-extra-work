@@ -43,7 +43,9 @@ function EditSource({ sourceId, source, history, fetchSource, updateSource }) {
     [sourceId]
   );
 
-  if (!source) return null;
+  if (!source) {
+    return null;
+  }
 
   // NOTE: To avoid overwrites with optimistic locking, check updated_at
   // against initial value server-side before committing.
