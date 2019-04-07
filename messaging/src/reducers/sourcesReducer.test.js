@@ -18,6 +18,7 @@ test('fetch sources', () => {
   const state = {
     all: [],
     current: null,
+    newLocation: '/old',
     currentMessages: [],
     currentMessageStatusCounts: [],
     error: 'old'
@@ -32,6 +33,7 @@ test('fetch sources', () => {
   expect(nextState).toEqual({
     all: [{ id: 'a' }],
     current: null,
+    newLocation: null,
     currentMessages: [],
     currentMessageStatusCounts: [],
     error: null
