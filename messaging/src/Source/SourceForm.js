@@ -46,7 +46,7 @@ function SourceForm({ source, onSubmit }) {
       render={({ errors, status, touched, isSubmitting, dirty }) => (
         <Form>
           <label>
-            Name: <Field type="text" size="50" name="name" />
+            Name: <Field type="text" size="50" name="name" autoFocus />
             <ErrorMessage name="name" component="div" />
           </label>
           <label>
