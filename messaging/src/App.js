@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
-import Sources from './Sources/SourcesContainer.js';
-import SourceDetail from './Source/SourceDetailContainer.js';
+import Sources from './Sources/SourcesContainer';
+import SourceDetail from './Source/SourceDetailContainer';
+import EditSource from './Source/EditSource';
 import Messages from './Messages/MessagesContainer';
 
 function App() {
@@ -17,6 +18,12 @@ function App() {
           exact
           render={props => (
             <SourceDetail sourceId={props.match.params.sourceId} />
+          )}
+        />
+        <Route
+          path="/source/:sourceId/edit"
+          render={props => (
+            <EditSource sourceId={props.match.params.sourceId} />
           )}
         />
         <Route
