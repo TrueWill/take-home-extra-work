@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Sources from './Sources/SourcesContainer';
@@ -7,12 +8,13 @@ import EditSource from './Source/EditSourceContainer';
 import Messages from './Messages/MessagesContainer';
 import CreateSource from './Source/CreateSourceContainer';
 
-function App() {
+function App({ error }) {
   return (
     <Router>
       <div className="App">
         <h1>Messaging</h1>
         <Link to="/">Home</Link>
+        {error && <div className="error">{error}</div>}
         <Route path="/" exact component={Sources} />
         <Route path="/createSource" component={CreateSource} />
         <Route
@@ -46,5 +48,9 @@ function App() {
     </Router>
   );
 }
+
+App.propTypes = {
+  error: PropTypes.string
+};
 
 export default App;

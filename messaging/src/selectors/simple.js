@@ -6,3 +6,4 @@ export const getCurrentMessages = state => state.sources.currentMessages;
 export const getCurrentMessageStatusCounts = state =>
   state.sources.currentMessageStatusCounts;
 export const getNewSourceLocation = state => state.sources.newLocation;
+export const getError = state => state.sources.error;

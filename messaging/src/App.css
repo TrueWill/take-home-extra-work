@@ -9,3 +9,8 @@ ul {
 label {
   display: block;
 }
+
+.error {
+  border-style: solid;
+  border-color: red;
+}
