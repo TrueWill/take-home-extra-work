@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SourceBasic from './SourceBasic';
+import { Link } from 'react-router-dom';
 
 function Sources({ sources, fetchSources }) {
   useEffect(() => {
@@ -15,6 +16,7 @@ function Sources({ sources, fetchSources }) {
     <div>
       <h2>Sources</h2>
       <ul>{items}</ul>
+      <Link to="/createSource">Create new</Link>
     </div>
   );
 }

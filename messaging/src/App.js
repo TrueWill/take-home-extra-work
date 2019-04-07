@@ -5,6 +5,7 @@ import Sources from './Sources/SourcesContainer';
 import SourceDetail from './Source/SourceDetailContainer';
 import EditSource from './Source/EditSourceContainer';
 import Messages from './Messages/MessagesContainer';
+import CreateSource from './Source/CreateSource';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <h1>Messaging</h1>
         <Link to="/">Home</Link>
         <Route path="/" exact component={Sources} />
+        <Route path="/createSource" component={CreateSource} />
         <Route
           path="/source/:sourceId"
           exact
