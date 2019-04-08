@@ -3,6 +3,7 @@ const logger = require('morgan');
 const nodeCleanup = require('node-cleanup');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const apicache = require('apicache');
 const security = require('./security');
 
 const sourceRouter = require('./routes/source');
@@ -12,6 +13,9 @@ const repository = require('./persistence/repository');
 
 const app = express();
 const port = 8880; // TODO move to config
+
+// In-memory cache by default
+const cache = apicache.middleware;
 
 app.use(logger('dev'));
 
@@ -27,6 +31,8 @@ app.use(cors(corsOptions));
 app.use(security.checkToken);
 
 app.use(bodyParser.json());
+
+app.use(cache('15 seconds')); // TODO move to config
 
 app.use('/source', sourceRouter);
 app.use('/message', messageRouter);
